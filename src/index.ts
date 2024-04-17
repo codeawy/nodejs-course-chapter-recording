@@ -1,6 +1,4 @@
-// ** Create a local server
-
-import * as http from "http"; // * ES Module
+import * as http from "http";
 import fs from "fs";
 import path from "path";
 
@@ -15,6 +13,23 @@ const server = http.createServer((req, res) => {
       }
 
       fs.readFile(productsFilePath, "utf8", (err, data) => {
+        // ** Write into a file
+        fs.writeFile(
+          productsFilePath,
+          JSON.stringify(
+            {
+              id: 5,
+              title: "Fifth product",
+            },
+            null,
+            2
+          ),
+          { flag: "w" },
+          err => {
+            console.log(err);
+          }
+        );
+
         res.writeHead(200, { "Content-Type": "application/json" });
         console.log("DATA =>", JSON.parse(data));
         res.write(data);
