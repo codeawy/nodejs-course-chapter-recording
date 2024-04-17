@@ -104,8 +104,22 @@ const server = http.createServer((req, res) => {
       });
     });
   } else if (req.method === "GET" && req.url?.startsWith("/delete")) {
-    res.write("<h1>File has been deleted!</h1>");
-    res.end();
+    const file = decodeURIComponent(req.url.split("?")[1].split("=")[1]);
+    const assetsPath = path.join(__dirname, "assets", file);
+
+    // ** TODO: check if the file exists (use fs.access())
+    fs.unlink(assetsPath, err => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.write(`<div>
+        <h1>File ${file} has been deleted!</h1>
+      </div>`);
+      res.end();
+    });
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("<h1>Not found!</h1>");
