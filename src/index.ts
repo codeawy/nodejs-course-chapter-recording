@@ -4,6 +4,8 @@ import path from "path";
 
 const server = http.createServer((req, res) => {
   const productsFilePath = path.join(__dirname, "data", "products.json");
+  const assetsPath = path.join(__dirname, "assets");
+
   if (req.url === "/products") {
     fs.access(productsFilePath, err => {
       if (err) {
@@ -77,6 +79,29 @@ const server = http.createServer((req, res) => {
         <p>Description: ${description}</p>
       </div>`);
       res.end();
+    });
+  } else if (req.method === "GET" && req.url === "/assets") {
+    fs.access(assetsPath, err => {
+      if (err) {
+        console.error("File does not exist or cannot be accessed:", productsFilePath);
+        return;
+      }
+
+      fs.readdir(assetsPath, (err, files) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.write("<h1>Here are your assets:</h1>");
+        res.write("<ul>");
+        files.forEach(file => {
+          res.write(`<li><span>${file}</span> - <button>Delete</button></li>`);
+        });
+        res.write("</ul>");
+        res.end();
+      });
     });
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
