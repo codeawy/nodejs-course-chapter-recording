@@ -97,12 +97,15 @@ const server = http.createServer((req, res) => {
         res.write("<h1>Here are your assets:</h1>");
         res.write("<ul>");
         files.forEach(file => {
-          res.write(`<li><span>${file}</span> - <button>Delete</button></li>`);
+          res.write(`<li><a href="/delete?file=${encodeURIComponent(file)}">${file}</a></li>`);
         });
         res.write("</ul>");
         res.end();
       });
     });
+  } else if (req.method === "GET" && req.url?.startsWith("/delete")) {
+    res.write("<h1>File has been deleted!</h1>");
+    res.end();
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end("<h1>Not found!</h1>");
