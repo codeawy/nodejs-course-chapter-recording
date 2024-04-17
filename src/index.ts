@@ -1,5 +1,5 @@
 import * as http from "http";
-import fs from "fs";
+import fs, { promises as fsPromises } from "fs";
 import path from "path";
 
 const server = http.createServer((req, res) => {
@@ -49,25 +49,26 @@ const server = http.createServer((req, res) => {
       body += chunk.toString();
     });
 
-    req.on("end", () => {
+    req.on("end", async () => {
       const data = new URLSearchParams(body);
       const title = data.get("title");
       const description = data.get("description");
 
-      fs.readFile(productsFilePath, "utf8", (err, data) => {
-        const jsonProducts: { products: [{ id: number; title: string; description: string }] } = JSON.parse(data);
+      try {
+        const jsonData = await fsPromises.readFile(productsFilePath, "utf8");
+        const jsonProducts: { products: [{ id: number; title: string; description: string }] } = JSON.parse(jsonData);
 
         jsonProducts.products.push({
           id: jsonProducts.products.length + 1,
           title: title as string,
           description: description as string,
         });
-        const updatedData = JSON.stringify(jsonProducts, null, 2);
 
-        fs.writeFile(productsFilePath, updatedData, { flag: "w" }, err => {
-          console.log(err);
-        });
-      });
+        const updatedData = JSON.stringify(jsonProducts, null, 2);
+        await fsPromises.writeFile(productsFilePath, updatedData, { flag: "w" });
+      } catch (error) {
+        console.log(error);
+      }
 
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(`<div>
