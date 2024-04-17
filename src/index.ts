@@ -3,9 +3,8 @@ import fs from "fs";
 import path from "path";
 
 const server = http.createServer((req, res) => {
+  const productsFilePath = path.join(__dirname, "data", "products.json");
   if (req.url === "/products") {
-    const productsFilePath = path.join(__dirname, "data", "products.json");
-
     fs.access(productsFilePath, err => {
       if (err) {
         console.error("File does not exist or cannot be accessed:", productsFilePath);
@@ -15,18 +14,6 @@ const server = http.createServer((req, res) => {
       fs.readFile(productsFilePath, "utf8", (err, data) => {
         const jsonProducts: { products: [{ id: number; title: string; description: string }] } = JSON.parse(data);
         // ** Write into a file
-        const submittedProduct = {
-          id: 2,
-          title: "Second product",
-          description: "Second product description",
-        };
-
-        jsonProducts.products.push(submittedProduct);
-        const updatedData = JSON.stringify(jsonProducts);
-
-        fs.writeFile(productsFilePath, updatedData, { flag: "w" }, err => {
-          console.log(err);
-        });
 
         res.writeHead(200, { "Content-Type": "application/json" });
         console.log("DATA =>", jsonProducts);
@@ -57,24 +44,36 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end("<h1>Welcome back!</h1>");
   } else if (req.method === "POST" && req.url === "/add-product") {
-    // ** Data => Request(req)
-    // ** title=MY+TITLE&description=MY+DESCRIPTION
     let body = "";
     req.on("data", chunk => {
       body += chunk.toString();
     });
 
-    // ** Parsing => Data
     req.on("end", () => {
       const data = new URLSearchParams(body);
       const title = data.get("title");
       const description = data.get("description");
 
+      fs.readFile(productsFilePath, "utf8", (err, data) => {
+        const jsonProducts: { products: [{ id: number; title: string; description: string }] } = JSON.parse(data);
+
+        jsonProducts.products.push({
+          id: jsonProducts.products.length + 1,
+          title: title as string,
+          description: description as string,
+        });
+        const updatedData = JSON.stringify(jsonProducts, null, 2);
+
+        fs.writeFile(productsFilePath, updatedData, { flag: "w" }, err => {
+          console.log(err);
+        });
+      });
+
       res.writeHead(200, { "Content-Type": "text/html" });
       res.write(`<div>
         <h1>Product has been added!</h1>
         <h2>Title: ${title}</h2>
-        <h2>Title: ${description}</h2>
+        <p>Description: ${description}</p>
       </div>`);
       res.end();
     });
