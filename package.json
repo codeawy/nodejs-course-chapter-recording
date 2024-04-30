@@ -2,13 +2,17 @@
   "type": "commonjs",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc -p ."
   },
   "devDependencies": {
+    "@types/express": "^4.17.21",
     "@types/node": "^20.11.20",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
   }
 }
