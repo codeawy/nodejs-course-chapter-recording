@@ -6,6 +6,7 @@
     "build": "tsc -p ."
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@types/express": "^4.17.21",
     "@types/node": "^20.11.20",
     "nodemon": "^3.1.0",
