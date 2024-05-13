@@ -13,21 +13,8 @@ const fakeProductsData = generateFakeProducts();
 const productService = new ProductService(fakeProductsData);
 const productController = new ProductController(productService);
 
-app.get("/products", (req, res) => res.send(productController.getProducts(req)));
-app.get("/products/:id", (req: Request, res: Response) => {
-  console.log(req.params);
-  const productId = +req.params.id;
-  if (isNaN(productId)) {
-    res.status(404).send({ message: "Invalid product ID" });
-  }
-
-  const findProduct: Product | undefined = fakeProductsData.find(product => product.id === productId);
-  if (findProduct) {
-    res.send({ id: productId, title: findProduct.title, price: findProduct.price });
-  } else {
-    res.status(404).send({ message: "Product not found" });
-  }
-});
+app.get("/products", (req, res) => productController.getProducts(req, res));
+app.get("/products/:id", (req, res) => productController.getProductById(req, res));
 
 // ** CREATE A NEW PRODUCT
 app.post("/products", (req, res) => {
