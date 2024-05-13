@@ -1,6 +1,11 @@
 import { Request } from "express";
 import { Product } from "../interfaces";
 
+type ProductBody = {
+  title: string;
+  price: number;
+  description: string;
+};
 export default class ProductService {
   constructor(private products: Product[]) {
     this.products = products;
@@ -30,5 +35,17 @@ export default class ProductService {
 
   getProductById(productId: number) {
     return this.findAll().find(product => product.id === productId);
+  }
+
+  createProduct(productBody: ProductBody) {
+    return this.findAll().push({ id: this.findAll().length + 1, ...productBody });
+  }
+
+  updateProductByIndex(index: number, productBody: ProductBody) {
+    return (this.findAll()[index] = { ...this.findAll()[index], ...productBody });
+  }
+
+  deleteProduct(id: number) {
+    return this.findAll().filter(product => product.id !== id);
   }
 }
