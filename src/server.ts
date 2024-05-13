@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { generateFakeProducts } from "./utils/fakeData";
 import { Product } from "./interfaces";
 import ProductController from "./controllers/productController";
+import { ProductsService } from "./services/ProductsService";
 
 const app = express();
 
@@ -9,8 +10,8 @@ app.use(express.json());
 
 const fakeProductsData = generateFakeProducts();
 
-const productController = new ProductController(fakeProductsData);
-console.log();
+const productService = new ProductsService();
+const productController = new ProductController(productService);
 
 app.get("/products", (req, res) => {
   return res.send(productController.getProducts());

@@ -1,17 +1,10 @@
-import { Product } from "../interfaces";
+import { ProductsService } from "../services/ProductsService";
 
 class ProductController {
-  // ** Properties
-  products: Product[];
+  constructor(private productService: ProductsService) {}
 
-  constructor(products: Product[]) {
-    this.products = products;
-  }
-
-  // ** Methods
   getProducts() {
-    // ** Delegate => Logic => Service
-    return this.products;
+    return this.productService.findAll();
   }
 }
 
