@@ -13,7 +13,7 @@ const fakeProductsData = generateFakeProducts();
 const productService = new ProductService(fakeProductsData);
 const productController = new ProductController(productService);
 
-app.get("/products", (req, res) => res.send(productController.getProducts()));
+app.get("/products", (req, res) => res.send(productController.getProducts(req)));
 app.get("/products/:id", (req: Request, res: Response) => {
   console.log(req.params);
   const productId = +req.params.id;

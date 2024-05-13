@@ -4,11 +4,3 @@ export interface Product {
   price: number;
   description: string;
 }
-
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  publishDate: Date;
-}
