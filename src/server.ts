@@ -1,12 +1,15 @@
-import express, { Request, Response } from "express";
-import { generateFakeProducts } from "./utils/fakeData";
-import { Product } from "./interfaces";
+import express from "express";
 import ProductController from "./controllers/productController";
 import ProductService from "./services/ProductService";
+import { generateFakeProducts } from "./utils/fakeData";
 
 const app = express();
 
 app.use(express.json());
+app.set("view engine", "pug");
+app.get("/", (req, res) => {
+  res.render("index");
+});
 
 const fakeProductsData = generateFakeProducts();
 

@@ -29,7 +29,6 @@ class ProductController {
       res.status(404).send({ message: "Product not found" });
     }
   }
-
   createProduct(req: Request, res: Response) {
     const productBody = req.body;
     this.productService.createProduct(productBody);
@@ -41,7 +40,6 @@ class ProductController {
       description: productBody.description,
     });
   }
-
   updateProduct(req: Request, res: Response) {
     const productId = +req.params.id;
 
