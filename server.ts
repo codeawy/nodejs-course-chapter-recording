@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.render("index");
+  res.render("notFound");
 });
 
 const PORT: number = 5000;
