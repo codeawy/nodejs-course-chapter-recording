@@ -1,0 +1,12 @@
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.page-title {
+  background-color: purple;
+  color: white;
+  width: fit-content;
+  text-align: center;
+  margin: 0 auto;
+}

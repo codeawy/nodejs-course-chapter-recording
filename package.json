@@ -1,8 +1,7 @@
 {
   "type": "commonjs",
   "scripts": {
-    "start": "node dist/index.js",
-    "dev": "nodemon src/server.ts",
+    "dev": "nodemon server.ts",
     "build": "tsc -p ."
   },
   "devDependencies": {
