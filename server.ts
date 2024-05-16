@@ -21,9 +21,7 @@ const productService = new ProductService(fakeProductsData);
 const productController = new ProductController(productService);
 
 // ** Products Route
-app.get("/products", (req, res) => {
-  res.render("products");
-});
+app.get("/products", (req, res) => productController.renderProductsList(req, res));
 app.get("/api/products", (req, res) => productController.getProducts(req, res));
 app.get("/api/products/:id", (req, res) => productController.getProductById(req, res));
 app.post("/api/products", (req, res) => productController.createProduct(req, res));
@@ -35,7 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  res.render("notFound");
+  res.render("index");
 });
 
 const PORT: number = 5000;
