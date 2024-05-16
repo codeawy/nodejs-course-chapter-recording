@@ -5,13 +5,12 @@ html(lang="en")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel="stylesheet", href="/styles/global.css")
     title Products Page
-  body 
+  body
+    include components/_navbar 
     .container 
-      h1= pageTitle
-      p= description
-      
       // product list
       .grid.grid-cols-5.gap-3
+      
         each product in products
           .group.my-10.flex.w-full.max-w-xs.flex-col.overflow-hidden.rounded-lg.border.border-gray-100.bg-white.shadow-md
             a.relative.mx-3.mt-3.flex.h-60.overflow-hidden.rounded-xl(href=`/products/${product.id}`)
@@ -27,5 +26,5 @@ html(lang="en")
                 svg.mr-2.h-6.w-6(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24' stroke='currentColor' stroke-width='2')
                   path(stroke-linecap='round' stroke-linejoin='round' d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z')
                 |       Add to cart
-
+    include components/_footer
 
