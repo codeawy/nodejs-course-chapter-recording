@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { Product } from "../interfaces";
 
 export const generateFakeProducts = (): Product[] => {
-  return Array.from({ length: 25 }, (_, idx) => {
+  return Array.from({ length: 10 }, (_, idx) => {
     return {
       id: idx + 1,
       title: faker.commerce.productName(),
