@@ -4,9 +4,11 @@
 }
 
 .page-title {
-  background-color: purple;
+  background-color: rgb(169, 23, 169);
   color: white;
   width: fit-content;
   text-align: center;
   margin: 0 auto;
+  padding: 7px;
+  border-radius: 5px;
 }
