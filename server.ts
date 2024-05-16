@@ -22,6 +22,7 @@ const productController = new ProductController(productService);
 
 // ** Products Route
 app.get("/products", (req, res) => productController.renderProductsList(req, res));
+app.get("/products/:id", (req, res) => productController.renderProductPage(req, res));
 app.get("/api/products", (req, res) => productController.getProducts(req, res));
 app.get("/api/products/:id", (req, res) => productController.getProductById(req, res));
 app.post("/api/products", (req, res) => productController.createProduct(req, res));
