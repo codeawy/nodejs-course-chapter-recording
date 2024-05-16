@@ -6,6 +6,7 @@ html(lang="en")
     link(rel="stylesheet", href="/styles/global.css")
     title Base Layout
   body 
-    include components/_navbar
-    block content
-    include components/_footer
+    .container
+      include ../components/_navbar
+      block content
+      include ../components/_footer
