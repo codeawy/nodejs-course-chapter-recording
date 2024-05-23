@@ -8,8 +8,6 @@ export default class ProductsViewController {
   }
 
   renderProductsList(req: Request, res: Response) {
-    throw new Error("Something went wrong");
-
     res.render("products", {
       pageTitle: "My Store - Products Page",
       description: "This is awesome store",

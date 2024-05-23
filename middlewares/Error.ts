@@ -13,7 +13,7 @@ export default class ErrorMiddleware {
     }
 
     res.status(500).render("error", {
-      pageTitle: "Error",
+      pageTitle: "Oops! Something went wrong",
       message: "Something went wrong. Please try again later.",
       error: err.message,
     });
