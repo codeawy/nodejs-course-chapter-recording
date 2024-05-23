@@ -1,9 +1,9 @@
 import express from "express";
 import path from "path";
-import { generateFakeProducts } from "./utils/fakeData";
-import ProductService from "./services/ProductService";
 import ProductController from "./controllers/productController";
 import productsRouter from "./routes/products";
+import ProductService from "./services/ProductService";
+import { generateFakeProducts } from "./utils/fakeData";
 
 const app = express();
 

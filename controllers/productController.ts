@@ -3,7 +3,9 @@ import { Request, Response } from "express";
 import { Product } from "../interfaces";
 
 class ProductController {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) {
+    this.getProducts = this.getProducts.bind(this);
+  }
 
   getProducts(req: Request, res: Response) {
     const filterQuery = req.query.filter as string;
