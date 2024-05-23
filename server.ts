@@ -4,6 +4,7 @@ import ProductsViewController from "./controllers/productViewController";
 import productsRouter from "./routes/products";
 import ProductService from "./services/ProductService";
 import { generateFakeProducts } from "./utils/fakeData";
+import ErrorMiddleware from "./middlewares/Error";
 
 const app = express();
 
@@ -39,6 +40,8 @@ app.get("*", (req, res) => {
     pageTitle: "My Store - Page Not Found",
   });
 });
+
+app.use(ErrorMiddleware.handle);
 
 const PORT: number = 5000;
 app.listen(PORT, () => {
