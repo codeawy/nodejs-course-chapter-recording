@@ -9,7 +9,7 @@ export default class ProductsViewController {
 
   renderProductsList(req: Request, res: Response) {
     res.render("products", {
-      pageTitle: "Product list 👕",
+      pageTitle: "My Store - Products Page",
       description: "This is awesome store",
       products: this.productService.findAll(),
     });
@@ -17,9 +17,11 @@ export default class ProductsViewController {
 
   renderProductPage(req: Request, res: Response) {
     const productId = +req.params.id;
+    const product = this.productService.getProductById(productId);
 
     res.render("product", {
-      product: this.productService.getProductById(productId),
+      pageTitle: `My Store - ${product?.title}`,
+      product,
     });
   }
 }
