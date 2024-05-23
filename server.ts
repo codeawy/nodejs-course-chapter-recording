@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import dotenv from "dotenv";
 import ProductsViewController from "./controllers/productViewController";
 import productsRouter from "./routes/products";
 import ProductService from "./services/ProductService";
@@ -9,6 +10,7 @@ import ErrorMiddleware from "./middlewares/Error";
 const app = express();
 
 app.use(express.json());
+dotenv.config();
 
 // * Set views directory and engine
 app.set("views", path.join(__dirname, "views"));
