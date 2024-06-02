@@ -1,8 +1,7 @@
 import express from "express";
-import 
-app.use(compression())helmet from "helmet";
+import helmet from "helmet";
 import morgan from "morgan";
-import compression  from "compression";
+import compression from "compression";
 import rateLimit from "express-rate-limit";
 import path from "path";
 import dotenv from "dotenv";
@@ -33,16 +32,15 @@ app.use(
     },
   })
 );
-app.use(compression())
+// * Middlewares
+app.use(compression());
 app.use(morgan("dev"));
 app.use(rateLimit(rateLimiterOptions));
+app.use(express.static(path.join(__dirname, "public")));
 
 // * Set views directory and engine
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-
-// * Static file
-app.use(express.static(path.join(__dirname, "public")));
 
 const fakeProductsData = generateFakeProducts();
 
@@ -55,12 +53,6 @@ app.get("/products/:id", productsViewController.renderProductPage);
 
 // ** Products API Routes
 app.use("/api/products", productsRouter);
-
-app.get("/", (req, res) => {
-  res.render("index", {
-    pageTitle: "My Store - Home",
-  });
-});
 
 // ** Middlewares
 app.use(NotFoundMiddleware.handle);
